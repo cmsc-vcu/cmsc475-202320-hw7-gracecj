@@ -30,10 +30,10 @@ function draw(){
 
   move3D();
   colorMode(RGB);
-  directionalLight(204, 204, 204, .5, 0, -1);
+  
 
   renderBall();
-  //renderOrbit();
+  renderOrbit();
 
 }
 
@@ -46,26 +46,37 @@ function move3D() {
 }
 
 function renderBall() {
+  push();
   noStroke();
+  directionalLight(204, 204, 204, .5, 0, -1);
   emissiveMaterial(0,26,51);
   sphere(45);
+  pop();
 }
 
 function renderOrbit() {
-  fill(255);
+  fill(0,26,51);
+  push();
   rotateY(millis() / 2000);
+  torus(70, 2, 50, 50);
+  pop();
 
-  //specularMaterial(0);
-  noMaterial();
-  torus(70, 2, 50, 50);
+  push();
+  rotateX(millis() / 2000);
+  torus(55, 2, 50, 50);
+  pop();
   
-  rotateX(millis() / 2200);
-  torus(70, 2, 50, 50);
+  /*
+  push();
   rotateY(millis() / 2400);
   torus(70, 2, 50, 50);
+  pop();
+
+  push();
   rotateX(millis() / 2600);
   torus(70, 2, 50, 50);
-  
+  pop();
+  */
 }
 
 function makeWaves() {
