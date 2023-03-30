@@ -10,10 +10,7 @@ let yvalues; // Using an array to store height values for the wave
 
 function setup() {
   // Create the canvas
-  
-  // add webgl back in for directional light
   createCanvas(700, 500, WEBGL);
-  //background( 100, 100 , 200 );
   
   w = width + 16;
   dx = (TWO_PI / period) * xspacing;
@@ -32,32 +29,52 @@ function draw(){
   //let dirY = (mouseY / height - 0.5) * 2;
   //directionalLight(250, 250, 250, -dirX, -dirY, -1);
   //noStroke();
-  //sphere(40);
+  //sphere(45);
+
+
   
   background(0);
-  
   colorMode(HSB);
 
   // move to 2d
   translate(-width / 2, -height / 2, 0);
   
+  // calculate and draw waves
   calcWave1();
   renderWave1();
-  
   calcWave2();
   renderWave2();
-  
   calcWave3();
   renderWave3();
 
-  colorMode(RGB);
-  
-  fill(236, 222, 252);
-
   // move to 3d
   translate(width / 2, height / 2, 0);
-  sphere(45);
+  colorMode(RGB);
+ 
+  lights();
+  renderBall();
+  renderOrbit();
 
+}
+
+function renderBall() {
+  specularMaterial(0);
+  sphere(45);
+}
+
+function renderOrbit() {
+  fill(0);
+  
+  rotateY(millis() / 2000);
+  torus(70, 2, 50, 50);
+  /*
+  rotateX(millis() / 2200);
+  torus(70, 2, 50, 50);
+  rotateY(millis() / 2400);
+  torus(70, 2, 50, 50);
+  rotateX(millis() / 2600);
+  torus(70, 2, 50, 50);
+  */
 }
 
 function calcWave1() {
@@ -115,7 +132,7 @@ function renderWave2() {
   // A simple way to draw the wave with an ellipse at each location
   for (let x = 0; x < yvalues.length; x++) {
     // start @ cool colors
-    fill(360-(frameCount % 360), 100, 100);
+    fill(360-(frameCount % 360), 55, 100);
     ellipse(x * xspacing, height/2 + yvalues[x], 4.5, 4.5);
   }
 }
@@ -125,7 +142,7 @@ function renderWave3() {
   // A simple way to draw the wave with an ellipse at each location
   for (let x = 0; x < yvalues.length; x++) {
     // start @ warm colors
-    fill(frameCount % 360, 100, 100);
+    fill(frameCount % 360, 55, 100);
     ellipse(x * xspacing, height/2 + yvalues[x], 6.5, 6.5);
   }
 }
