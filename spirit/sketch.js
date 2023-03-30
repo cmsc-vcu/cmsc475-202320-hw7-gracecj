@@ -2,8 +2,6 @@ let xspacing = 15; // Distance between each horizontal location
 let w; // Width of entire wave
 let theta = 0.0; // Start angle at 0
 let amplitude = 75.0; // Height of wave
-let amplitude2 = 75.0;
-let amplitude3 = 75.0;
 let period = 290.0; // How many pixels before the wave repeats
 let dx; // Value for incrementing x
 let yvalues; // Using an array to store height values for the wave
@@ -21,65 +19,67 @@ function setup() {
 
 
 
-
 function draw(){
-  //background(0);
-  //move your mouse to change light direction
-  //let dirX = (mouseX / width - 0.5) * 2;
-  //let dirY = (mouseY / height - 0.5) * 2;
-  //directionalLight(250, 250, 250, -dirX, -dirY, -1);
-  //noStroke();
-  //sphere(45);
-
-
-  
   background(0);
-  colorMode(HSB);
 
-  // move to 2d
-  translate(-width / 2, -height / 2, 0);
+  move2D();
   
   // calculate and draw waves
-  calcWave1();
-  renderWave1();
-  calcWave2();
-  renderWave2();
-  calcWave3();
-  renderWave3();
+  colorMode(HSB);
+  makeWaves();
 
-  // move to 3d
-  translate(width / 2, height / 2, 0);
+  move3D();
   colorMode(RGB);
- 
-  lights();
+  directionalLight(204, 204, 204, .5, 0, -1);
+
   renderBall();
-  renderOrbit();
+  //renderOrbit();
 
 }
 
+function move2D() {
+  translate(-width / 2, -height / 2, 0);
+}
+
+function move3D() {
+  translate(width / 2, height / 2, 0);
+}
+
 function renderBall() {
-  specularMaterial(0);
+  noStroke();
+  emissiveMaterial(0,26,51);
   sphere(45);
 }
 
 function renderOrbit() {
-  fill(0);
-  
+  fill(255);
   rotateY(millis() / 2000);
+
+  //specularMaterial(0);
+  noMaterial();
   torus(70, 2, 50, 50);
-  /*
+  
   rotateX(millis() / 2200);
   torus(70, 2, 50, 50);
   rotateY(millis() / 2400);
   torus(70, 2, 50, 50);
   rotateX(millis() / 2600);
   torus(70, 2, 50, 50);
-  */
+  
+}
+
+function makeWaves() {
+  calcWave1();
+  renderWave1();
+  calcWave2();
+  renderWave2();
+  calcWave3();
+  renderWave3();
 }
 
 function calcWave1() {
   // Increment theta
-  theta += 0.02;
+  theta += 0.009;
 
   // For every x value, calculate a y value with sine function
   let x = theta;
@@ -92,27 +92,21 @@ function calcWave1() {
 
 
 function calcWave2() {
-  // Increment theta
-  theta += 0.0009;
-
   // For every x value, calculate a y value with sine function
   let x = theta;
   for (let i = 0; i < yvalues.length; i++) {
     // height of wave
-    yvalues[i] = (sin(x) * amplitude2)/-3.7;
+    yvalues[i] = (sin(x) * amplitude)/-3.7;
     x += dx;
   }
 }
 
 function calcWave3() {
-  // Increment theta
-  theta += 0.0009;
-
-  // For every x value, calculate a y value with sine function
+// For every x value, calculate a y value with sine function
   let x = theta;
   for (let i = 0; i < yvalues.length; i++) {
     // height of wave
-    yvalues[i] = (sin(x) * amplitude3)/5.5;
+    yvalues[i] = (sin(x) * amplitude)/5.5;
     x += dx;
   }
 }
@@ -132,7 +126,7 @@ function renderWave2() {
   // A simple way to draw the wave with an ellipse at each location
   for (let x = 0; x < yvalues.length; x++) {
     // start @ cool colors
-    fill(360-(frameCount % 360), 55, 100);
+    fill(360-(frameCount % 360), 45, 100);
     ellipse(x * xspacing, height/2 + yvalues[x], 4.5, 4.5);
   }
 }
@@ -142,7 +136,7 @@ function renderWave3() {
   // A simple way to draw the wave with an ellipse at each location
   for (let x = 0; x < yvalues.length; x++) {
     // start @ warm colors
-    fill(frameCount % 360, 55, 100);
+    fill(frameCount % 360, 45, 100);
     ellipse(x * xspacing, height/2 + yvalues[x], 6.5, 6.5);
   }
 }
