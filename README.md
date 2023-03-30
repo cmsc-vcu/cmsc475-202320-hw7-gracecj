@@ -3,19 +3,19 @@
 [For this assignment](https://lowkeylabs.github.io/cmsc475-202320-materials/homework7.html) you are to submit links to 3 sketches in the P5JS environment.
 
 
-## Sketch 1 - Reflection
+## Sketch 1: *Reflection*
 
 <https://editor.p5js.org/>
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
-## Sketch 2 - Spirit
+## Sketch 2: *Spirit*
 
 <https://editor.p5js.org/>
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
-## Sketch 3 - Belonging
+## Sketch 3: *Belonging*
 
 <https://editor.p5js.org/>
 
