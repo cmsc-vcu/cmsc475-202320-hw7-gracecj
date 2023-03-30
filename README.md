@@ -8,7 +8,7 @@
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
-[Source Code]()
+[Source Code](./reflection/)
 
 ## Sketch 2: *Spirit*
 
@@ -24,5 +24,5 @@
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
-[Source Code]()
+[Source Code](./belonging/)
 
