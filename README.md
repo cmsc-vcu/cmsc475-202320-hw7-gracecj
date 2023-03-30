@@ -1,5 +1,3 @@
-## Test change
-
 # Homework 7 - CMSC475 - Spring 2023
 
 [For this assignment](https://lowkeylabs.github.io/cmsc475-202320-materials/homework7.html) you are to submit links to 3 sketches in the P5JS environment.
