@@ -2,7 +2,7 @@
 
 ➤ Grace Johnson
 
-## Sketch 1: *Reflection*
+## Sketch 1: *Reflection: Stars/Memories*
 
 [Reflection: ____](https://editor.p5js.org/)
 
@@ -15,7 +15,7 @@ To gather inspiration, I examined other art forms and I found that the idea of r
 Inspired by the idea of stars and memories, I hoped to design a canvas that immerses the user in a galaxy of stars. I started by finding code that allowed me to generate a randomized field of stars. I modified the code for the galaxy to add more random chance in the number of stars that are created. To make the canvas interactive, I also wrote code that lets the user add stars by clicking or dragging their mouse. After some trial and error, I created a function that draws clusters of stars around the user's additions, varying the number and density of stars for each new mouse event.
 
 
-## Sketch 2: *Spirit*
+## Sketch 2: *Spirit: A Look into the Human Spirit*
 
 [Spirit: ____](https://editor.p5js.org/)
 
