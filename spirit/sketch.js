@@ -8,7 +8,7 @@ let yvalues; // Using an array to store height values for the wave
 
 function setup() {
   // Create the canvas
-  createCanvas(700, 500, WEBGL);
+  createCanvas(700, 300, WEBGL);
   
   w = width + 16;
   dx = (TWO_PI / period) * xspacing;
@@ -17,24 +17,31 @@ function setup() {
   console.log( getTargetFrameRate() );
 }
 
-
-
 function draw(){
   background(0);
-
-  move2D();
   
-  // calculate and draw waves
+  // set lights for 3D
+  pointLight(255, 255, 255, width, height/2, 50);
+  ambientLight(60);
+  renderCyl1();
+  
+  // set lights/color/location up for 2D
+  move2D();
   colorMode(HSB);
+  noLights();
+
+  // calculate and draw waves
   makeWaves();
 
+  // set lights/color/location back up for 3D
   move3D();
   colorMode(RGB);
-  
-  directionalLight(204, 204, 204, .5, 0, -1);
-  renderBall();
-  renderOrbit();
+  pointLight(255, 255, 255, width, height/2, 50);
+  ambientLight(60);
 
+  // draw sphere and its rings
+  renderBall();
+  //renderOrbit();
 }
 
 function move2D() {
@@ -47,22 +54,24 @@ function move3D() {
 
 function renderBall() {
   push();
-  specularMaterial(0,26,51);
+  specularMaterial(250);
+  shininess(50);
   sphere(45);
   pop();
 }
 
 function renderOrbit() {
-  
   push();
   rotateY(millis() / 2000);
-  specularMaterial(200,5,5);
+  specularMaterial(250);
+  shininess(50);
   torus(70, 2, 50, 50);
   pop();
 
   push();
   rotateX(millis() / 2000);
-  specularMaterial(185, 218, 255);
+  specularMaterial(250);
+  shininess(50);
   torus(55, 2, 50, 50);
   pop();
   
@@ -77,6 +86,20 @@ function renderOrbit() {
   torus(70, 2, 50, 50);
   pop();
   */
+}
+
+function renderCyl1() {
+  push();
+  translate((width/2)-10,0);
+  angleMode(DEGREES);
+  rotate(-90);
+  //specularMaterial(0,26,51);
+  //specularMaterial(0);
+  fill(0);
+  shininess(50);
+  cone(55, 150, 24, 16);
+  angleMode(RADIANS);
+  pop();
 }
 
 function makeWaves() {
