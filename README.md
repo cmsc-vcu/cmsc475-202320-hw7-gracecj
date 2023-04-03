@@ -4,7 +4,7 @@
 
 ## Sketch 1: *Reflection*
 
-<https://editor.p5js.org/>
+[Reflection: ____](https://editor.p5js.org/)
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
@@ -12,7 +12,7 @@
 
 ## Sketch 2: *Spirit*
 
-<https://editor.p5js.org/>
+[Spirit: ____](https://editor.p5js.org/)
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
@@ -20,7 +20,7 @@
 
 ## Sketch 3: *Belonging*
 
-<https://editor.p5js.org/>
+[Belonging: ____](https://editor.p5js.org/)
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
 
