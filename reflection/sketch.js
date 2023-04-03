@@ -15,7 +15,7 @@ function setup() {
   c = 255;
 
 	// random number of initial stars
-	s = random(100,300);
+	s = random(70,200);
 
 	// add some stars with random values to the array
   for (let i = 0; i < s; i++) {
