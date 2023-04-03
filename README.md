@@ -2,7 +2,7 @@
 
 ➤ Grace Johnson
 
-## Sketch 1: *Reflection: Stars/Memories*
+## Sketch 1: *Reflection: 'Memories are like stars'*
 
 [Reflection: ____](https://editor.p5js.org/)
 
