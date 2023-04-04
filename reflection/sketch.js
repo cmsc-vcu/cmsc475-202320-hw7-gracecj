@@ -7,7 +7,7 @@ var mode = 0;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   a = createButton("start");
-  a.position(width/2, height/2+60);
+  a.position(width/2, height/2);
   a.mousePressed(updatemode);
   a.center('horizontal');
 
@@ -29,12 +29,24 @@ function setup() {
 
 function draw() {
   if (mode == 0) {
+    // intro page setup
     rectMode(CENTER);
     background(255);
+
+    // text box
+    push();
+    stroke(0);
+    strokeWeight(4);
+    noFill();
+    rect(width/2, height/2-40, 180, 200);
+    pop();
+
+    // intro text
     let intro = "click or draw with your mouse to add stars to the galaxy";
     fill(0);
     textAlign(CENTER);
-    text(intro, width/2, height/2, 110, 80);
+    textSize(14);
+    text(intro, width/2, height/2-50, 140, 80);
   }
   else {
     background(0,0,35,25); 
