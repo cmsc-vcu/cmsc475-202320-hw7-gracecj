@@ -2,10 +2,14 @@ let x, y;
 let c;
 let down;
 let stars = [];
+var mode = 0;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //noCursor();
+  a = createButton("start");
+  a.position(width/2, height/2+60);
+  a.mousePressed(updatemode);
+  a.center('horizontal');
 
 	// x coord of star
 	x = width / 2;
@@ -24,13 +28,28 @@ function setup() {
 }
 
 function draw() {
-  background(0,0,35,25); 
-
-	// show stars 
-	for (let i = 0; i < stars.length; i++) {
-    stars[i].twinkle();
-    stars[i].showStar();
+  if (mode == 0) {
+    rectMode(CENTER);
+    background(255);
+    let intro = "click or draw with your mouse to add stars to the galaxy";
+    fill(0);
+    textAlign(CENTER);
+    text(intro, width/2, height/2, 110, 80);
   }
+  else {
+    background(0,0,35,25); 
+
+    // show stars 
+    for (let i = 0; i < stars.length; i++) {
+      stars[i].twinkle();
+      stars[i].showStar();
+    }
+  }
+}
+
+function updatemode() {
+  mode = 1;
+  a.hide();
 }
 
 function mouseDragged() {
