@@ -1,3 +1,6 @@
+// Grace Johnson
+// Spirit: A Glimpse Into the Human Spirit
+
 let xspacing = 15; // Distance between each horizontal location
 let w; // Width of entire wave
 let theta = 0.0; // Start angle at 0
@@ -9,6 +12,7 @@ let yvalues; // Using an array to store height values for the wave
 function setup() {
   // Create the canvas
   createCanvas(windowWidth, windowHeight, WEBGL);
+
   w = width + 16;
   dx = (TWO_PI / period) * xspacing;
   yvalues = new Array(floor(w / xspacing));
