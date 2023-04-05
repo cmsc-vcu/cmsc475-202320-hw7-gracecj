@@ -1,3 +1,6 @@
+// Grace Johnson
+// Reflection: ‘Memories are like stars’
+
 let x, y;
 let c;
 let down;
