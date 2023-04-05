@@ -8,7 +8,7 @@ let yvalues; // Using an array to store height values for the wave
 
 function setup() {
   // Create the canvas
-  createCanvas(700, 300, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   w = width + 16;
   dx = (TWO_PI / period) * xspacing;
   yvalues = new Array(floor(w / xspacing));
