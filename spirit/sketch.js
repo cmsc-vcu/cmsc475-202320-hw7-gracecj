@@ -14,7 +14,7 @@ let pg;
 function setup() {
   // Create the canvas
   createCanvas(windowWidth, windowHeight, WEBGL);
-  pg = createGraphics(windowWidth, windowHeight);
+  pg = createGraphics(width, height);
 
   a = createButton("start");
   a.position(width/2, height/2);
@@ -29,16 +29,17 @@ function setup() {
 function draw(){
   if (mode == 0) {
     // intro page setup
+    //rectMode(CENTER);
     pg.background(255);
-    move2D();
-    pg.rectMode(CENTER);
+    //move2D();
 
     // text box
     pg.push();
+    
     pg.stroke(0);
     pg.strokeWeight(4);
     pg.noFill();
-    pg.rect(width/2, height/2-40, 180, 200);
+    pg.rect(0, 0, 180, 150);
     pg.pop();
     
     // intro text
@@ -46,10 +47,10 @@ function draw(){
     pg.fill(0);
     pg.textAlign(CENTER);
     pg.textSize(14);
-    pg.text(intro, width/2, height/2-50, 140, 80);
+    pg.text(intro, 20, 20, 140, 80);
 
-    //texture(pg);
-    image(pg, 180, 200);
+    imageMode(CENTER);
+    image(pg, width/2-100, height/2-100);
   }
   else {
     background(0);
@@ -78,6 +79,7 @@ function draw(){
 }
 
 function updatemode() {
+  clear();
   mode = 1;
   a.hide();
 }
