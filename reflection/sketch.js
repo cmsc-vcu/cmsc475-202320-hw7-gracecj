@@ -39,8 +39,8 @@ function draw() {
     // text box
     push();
     stroke(0);
-    strokeWeight(4);
     noFill();
+    strokeWeight(4);
     rect(width/2, height/2-40, 180, 200);
     pop();
 
@@ -63,6 +63,7 @@ function draw() {
 }
 
 function updatemode() {
+  clear();
   mode = 1;
   a.hide();
 }
