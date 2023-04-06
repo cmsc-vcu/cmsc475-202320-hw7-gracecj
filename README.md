@@ -21,7 +21,13 @@ Inspired by the idea of stars and memories, I hoped to design a canvas that imme
 
 [Source Code](./spirit/)
 
-[Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
+The human spirit encompasses our emotions, beliefs, values, and our connection to the world around us. It's a concept that is both personal and universal, something that every person might describe differently. I felt compelled to capture this complex and intangible essence in my sketch. 
+
+To begin the process, I turned to diagrams of electromagnetic fields and electron orbits, as well as the ancient Indian concept of chakras, which describes the body's energy centers. I incorporated elements from each of these into my art.
+
+At the center of the canvas is a sphere, representing the core of the human spirit. Around it are orbiting rings, depicting different aspects of the spirit, such as emotions, creativity, intuition, and wisdom. The waves represent the connections we have to the world around us and the constant change and movement in our lives. They flow off the canvas, coming in contact with the energy of others. The changing colors of the waves show the changing energies that we encounter. These colors are reflected by the sphere, emphasizing their influence on the spirit. The spotlight on the center of the image can be moved by the user, which is representative of one’s ability to change their perspective and explore different sides of themselves.
+ 
+I created this sketch by starting with the waves. I copied code that creates a sine wave drawn with ellipses. I manipulated the code to add more waves of varying amplitudes, sizes, and colors. I then created the sphere and its rings using a reflective three-dimensional material, giving the piece more dimension and reflectivity. The combination of scientific and spiritual concepts, vivid colors, and fluid lines in my art is meant to be an imaginative representation of the human spirit and its connection to the energy surrounding us.
 
 
 ## 3. Belonging
