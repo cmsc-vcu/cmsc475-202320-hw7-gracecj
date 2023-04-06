@@ -17,7 +17,7 @@ Inspired by the idea of stars and memories, I hoped to design a canvas that imme
 
 ## 2. Spirit
 
-[*Spirit: A Glimpse Into the Human Spirit*](https://editor.p5js.org/)
+[*Spirit: A Glimpse Into the Human Spirit*]([https://editor.p5js.org/](https://editor.p5js.org/johnsongc3/sketches/LCYYBZjwJ))
 
 [Source Code](./spirit/)
 
