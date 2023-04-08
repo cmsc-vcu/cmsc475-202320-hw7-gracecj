@@ -12,6 +12,7 @@ let y = 0;
 let dim = 30.0;
 let shark, sand;
 let umbrellas = [];
+let waterTexture, shape, shape2;
 var mode = 0;
 
 function preload() {
@@ -21,10 +22,13 @@ function preload() {
   crowdSound = createAudio('assets/crowd.wav');
   shark = loadImage('assets/shark1.png');
   sand = loadImage('assets/sandTexture.jpeg');
+  waterTexture = loadImage('assets/waterTexture.png');
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  shape = createGraphics(width,height);
+  shape2 = createGraphics(width,height);
 
   /*
   a = createButton("start");
@@ -53,7 +57,7 @@ function setup() {
 
   for (let q = 0; q < random(5,12); q++) {
     c = 1;
-    umbrellas[q] = new Umbrella(random(width), random(height/2.5), color(random(255), random(255), random(255)));
+    umbrellas[q] = new Umbrella(random(width), random(height/2.6), color(random(255), random(255), random(255)));
   }
 
   x = width;
@@ -102,6 +106,63 @@ function drawShape(points, color, offset = .15*height) {
   endShape();
 }
 
+function drawShape3(points, color, offset = .15*height) {
+
+  shape2.fill(color);
+  shape2.noStroke();
+
+  shape2.beginShape();
+  
+  for (let x = 0; x <= shape.width; x++) {
+    shape2.vertex(x, points[x] + offset);
+  }
+
+  shape2.vertex(width + 1, height + 1);
+  shape2.vertex(0 , height + 1);
+
+  shape2.endShape();
+  
+  //image(shape2,0,0);
+  //shape2.mask(waterTexture);
+
+  //image(shape2,0,0);
+  
+}
+
+function drawShape2(points, color, offset = .15*height) {
+  
+  shape.clear();
+
+  shape.fill(color);
+  shape.noStroke();
+
+  shape.beginShape();
+  
+  for (let x = 0; x <= shape.width; x++) {
+    shape.vertex(x, points[x] + offset);
+  }
+  
+  shape.vertex(width + 1, height + 1);
+  shape.vertex(0 , height + 1);
+
+  shape.endShape();
+  
+  //image(waterTexture,0,0);
+  //image(shape2,0,0);
+  waterTexture.mask(shape2);
+  //image(waterTexture,0,0);
+
+
+
+  //shape.mask(shape2);
+  image(waterTexture, 0, 0);
+  image(shape, 0,0);
+  
+  //image(shape,0,0);
+}
+
+
+
 let levelOneNoiseScale = 0.02;
 let levelTwoNoiseScale = 0.01;
 let levelThreeNoiseScale = 0.001;
@@ -143,11 +204,15 @@ function draw() {
       line(0,y,width, y);
     }
 
+    /*
     push();
     sand.resize(width,height);
     tint(255, 40);
     image(sand, 0, 0);
     pop();
+    */
+
+    waterTexture.resize(width,height);
 
     noStroke();
     t += 0.25;
@@ -167,9 +232,14 @@ function draw() {
     }
 
     if (height <= 270) {
+      //drawShape2(waves, color(0,75,107, 200), sinEase(t/13, 5) + 30);
+      
       drawShape(waves, color(152,194,195), sinEase(t/19, 7)+5);
       drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 15);
-      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 30);
+      drawShape3(waves, color(0,75,107), sinEase(t/13, 5) + 30);
+      drawShape2(waves, color(0,75,107,240), sinEase(t/13, 5) + 30);
+      //image(waterTexture, 0, 0);
+      //waterTexture.clear();
     }
     else if (height <= 300){
       drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 10);
@@ -216,32 +286,6 @@ function draw() {
       umbrellas[j].showUmbrella();
     }
 
-    /*
-    push();
-    drawingContext.shadowOffsetX = 5;
-    drawingContext.shadowOffsetY = -5;
-    drawingContext.shadowBlur = 20;
-    drawingContext.shadowColor = color(0);
-    fill(255);
-    ellipse(50,40,20,20);
-    pop();
-
-    push();
-    angleMode(DEGREES);
-    fill('red');
-    arc(50, 40, 20, 20, 0, 20);
-    arc(50, 40, 20, 20, 40, 60);
-    arc(50, 40, 20, 20, 80, 100);
-    arc(50, 40, 20, 20, 120, 140);
-    arc(50, 40, 20, 20, 160, 180);
-    arc(50, 40, 20, 20, 200, 220);
-    arc(50, 40, 20, 20, 240, 260);
-    arc(50, 40, 20, 20, 280, 300);
-    arc(50, 40, 20, 20, 320, 340);
-    pop();
-    */
-
-
   //}
 }
 
@@ -278,9 +322,9 @@ class Umbrella {
 
   showUmbrella() {
     push();
-    drawingContext.shadowOffsetX = 5;
+    drawingContext.shadowOffsetX = 2;
     drawingContext.shadowOffsetY = -5;
-    drawingContext.shadowBlur = 20;
+    drawingContext.shadowBlur = 10;
     drawingContext.shadowColor = color(0);
     fill(255);
     ellipse(this.x, this.y, 20, 20);
