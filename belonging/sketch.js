@@ -11,6 +11,7 @@ let x;
 let y = 0;
 let dim = 30.0;
 let shark, sand;
+let umbrellas = [];
 var mode = 0;
 
 function preload() {
@@ -25,10 +26,12 @@ function preload() {
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
+  /*
   a = createButton("start");
   a.position(width/2, height/2);
   a.mousePressed(updatemode);
   a.center('horizontal');
+  */
 
   waveSound.volume(0.25);
   birdSound.volume(0.7);
@@ -46,6 +49,11 @@ function setup() {
   for (let i = 0; i < random(100,200); i++) {
     s = random(tones);
     people[i] = new Person(random(width), random(height/1.5), 6, 6, color(random(255), random(255), random(255)), s);
+  }
+
+  for (let q = 0; q < random(5,12); q++) {
+    c = 1;
+    umbrellas[q] = new Umbrella(random(width), random(height/2.5), color(random(255), random(255), random(255)));
   }
 
   x = width;
@@ -101,6 +109,7 @@ let levelThreeNoiseScale = 0.001;
 let t = 0;
 
 function draw() {
+  /*
   if (mode==0) {
     // intro page setup
     rectMode(CENTER);
@@ -122,6 +131,7 @@ function draw() {
     text(intro, width/2, height/2-50, 140, 80);
   }
   else {
+    */
     // gradient background
     c1 = color(246,215,169,255);
     c2 = color(255);
@@ -201,10 +211,39 @@ function draw() {
     for (let i = 0; i < people.length; i++) {
       people[i].showPerson();
     }
-  }
+
+    for (let j = 0; j < umbrellas.length; j++) {
+      umbrellas[j].showUmbrella();
+    }
+
+    /*
+    push();
+    drawingContext.shadowOffsetX = 5;
+    drawingContext.shadowOffsetY = -5;
+    drawingContext.shadowBlur = 20;
+    drawingContext.shadowColor = color(0);
+    fill(255);
+    ellipse(50,40,20,20);
+    pop();
+
+    push();
+    angleMode(DEGREES);
+    fill('red');
+    arc(50, 40, 20, 20, 0, 20);
+    arc(50, 40, 20, 20, 40, 60);
+    arc(50, 40, 20, 20, 80, 100);
+    arc(50, 40, 20, 20, 120, 140);
+    arc(50, 40, 20, 20, 160, 180);
+    arc(50, 40, 20, 20, 200, 220);
+    arc(50, 40, 20, 20, 240, 260);
+    arc(50, 40, 20, 20, 280, 300);
+    arc(50, 40, 20, 20, 320, 340);
+    pop();
+    */
+
+
+  //}
 }
-
-
 
 class Person {
   constructor(x, y, s1, s2, c, s) {
@@ -217,7 +256,6 @@ class Person {
   }
 
   showPerson() {
-    
     stroke(this.c);
     strokeWeight(3);
     line(this.x, this.y, this.x, this.y+6);
@@ -228,5 +266,38 @@ class Person {
     
     this.x += random(-0.5, 0.5);
     this.y += random(-0.5, 0.5);
+  }
+}
+
+class Umbrella {
+  constructor(x, y, c) {
+    this.x = x;
+    this.y = y;
+    this.c = c;
+  }
+
+  showUmbrella() {
+    push();
+    drawingContext.shadowOffsetX = 5;
+    drawingContext.shadowOffsetY = -5;
+    drawingContext.shadowBlur = 20;
+    drawingContext.shadowColor = color(0);
+    fill(255);
+    ellipse(this.x, this.y, 20, 20);
+    pop();
+
+    push();
+    angleMode(DEGREES);
+    fill(this.c);
+    arc(this.x, this.y, 20, 20, 0, 20);
+    arc(this.x, this.y, 20, 20, 40, 60);
+    arc(this.x, this.y, 20, 20, 80, 100);
+    arc(this.x, this.y, 20, 20, 120, 140);
+    arc(this.x, this.y, 20, 20, 160, 180);
+    arc(this.x, this.y, 20, 20, 200, 220);
+    arc(this.x, this.y, 20, 20, 240, 260);
+    arc(this.x, this.y, 20, 20, 280, 300);
+    arc(this.x, this.y, 20, 20, 320, 340);
+    pop();
   }
 }
