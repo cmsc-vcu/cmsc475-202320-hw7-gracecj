@@ -1,5 +1,5 @@
 // Grace Johnson
-// Belonging: 
+// Belonging: Beach Day
 
 let c1, c2, t1, t2, s;
 let waveSound, birdSound, crowdSound;
@@ -23,7 +23,6 @@ function preload() {
   crowdSound = createAudio('assets/crowd.wav');
   shark = loadImage('assets/shark1.png');
   sand = loadImage('assets/sandTexture.jpeg');
-  waterTexture = loadImage('assets/waterTexture.png');
 }
 
 function setup() {
@@ -66,7 +65,6 @@ function setup() {
       );
       if (d < 40) {
         overlapping = true;
-        console.log('overlap')
         break;
       }
     }
@@ -80,9 +78,6 @@ function setup() {
       break;
     }
   }
-
-
-
   x = width;
 }
 
@@ -174,8 +169,6 @@ function draw() {
     image(sand, 0, 0);
     pop();
 
-    waterTexture.resize(width,height);
-
     noStroke();
     t += 0.25;
     let waves = [];
@@ -242,7 +235,6 @@ function draw() {
     for (let j = 0; j < umbrellas.length; j++) {
       umbrellas[j].showUmbrella();
     }
-
   }
 }
 
