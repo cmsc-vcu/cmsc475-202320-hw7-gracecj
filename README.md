@@ -8,6 +8,8 @@
 
 [Source Code](./reflection/)
 
+<img src="reflection.gif" width="50%" height="50%"/>
+
 Reflection was the prompt that immediately caught my attention. I found myself contemplating the various meanings of reflection. Self-reflection? Introspection? Mirrors? 
 
 To gather inspiration, I examined other art forms and I found that the idea of reflecting on one’s life resonated with me. As I scrolled through paintings and poems, I noticed some common themes that guided me in the direction I wanted to go. Painters confront their mortality through self-portraits created during their final conscious moments, while poets describe their childhood memories to evoke a sense of reflection and introspection. Nature also plays a significant role, with bodies of water acting as mirrors that can reflect one’s younger self. The cycles of the sun and moon remind the artist that time is passing. Stars are often used to symbolize memories that endure even after a person has passed away.
@@ -20,6 +22,8 @@ Inspired by the idea of stars and memories, I hoped to design a canvas that imme
 [*Spirit: A Glimpse Into the Human Spirit*](https://editor.p5js.org/johnsongc3/sketches/LCYYBZjwJ)
 
 [Source Code](./spirit/)
+
+<img src="spirit.gif" width="50%" height="50%"/>
 
 The human spirit encompasses our emotions, beliefs, values, and our connection to the world around us. It's a concept that is both personal and universal, something that every person might describe differently. I felt compelled to capture this complex and intangible essence in my sketch. 
 
@@ -35,5 +39,7 @@ I created this sketch by starting with the waves. I copied code that creates a s
 [*Belonging: Beach Day*](https://editor.p5js.org/johnsongc3/sketches/fK997Fjqt)
 
 [Source Code](./belonging/)
+
+<img src="belonging.gif" width="50%" height="50%"/>
 
 [Provide a brief description. What are you trying to show? What other info should I know to give you a great score?]
