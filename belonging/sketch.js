@@ -12,8 +12,9 @@ let y = 0;
 let dim = 30.0;
 let shark, sand;
 let umbrellas = [];
-let waterTexture, shape, shape2;
-var mode = 0;
+let waterTexture;
+let mode = 0;
+let counter = 0;
 
 function preload() {
   soundFormats('mp3', 'wav');
@@ -27,15 +28,11 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  shape = createGraphics(width,height);
-  shape2 = createGraphics(width,height);
 
-  /*
   a = createButton("start");
   a.position(width/2, height/2);
   a.mousePressed(updatemode);
   a.center('horizontal');
-  */
 
   waveSound.volume(0.25);
   birdSound.volume(0.7);
@@ -55,10 +52,36 @@ function setup() {
     people[i] = new Person(random(width), random(height/1.5), 6, 6, color(random(255), random(255), random(255)), s);
   }
 
-  for (let q = 0; q < random(5,12); q++) {
-    c = 1;
-    umbrellas[q] = new Umbrella(random(width), random(height/2.6), color(random(255), random(255), random(255)));
+  let numUmbrellas = random(5,12);
+  while (umbrellas.length < numUmbrellas) {
+    let overlapping = false;
+    let proposalCircle = new Umbrella(random(width), random(height/2.6), color(random(255), random(255), random(255)));
+    for (let j = 0; j < umbrellas.length; j++) {
+      let existingCircle = umbrellas[j];
+      let d = dist(
+        proposalCircle.x,
+        proposalCircle.y,
+        existingCircle.x,
+        existingCircle.y
+      );
+      if (d < 40) {
+        overlapping = true;
+        console.log('overlap')
+        break;
+      }
+    }
+
+    if (!overlapping) {
+      umbrellas.push(proposalCircle);
+    }
+
+    counter++;
+    if (counter > numUmbrellas) {
+      break;
+    }
   }
+
+
 
   x = width;
 }
@@ -106,63 +129,6 @@ function drawShape(points, color, offset = .15*height) {
   endShape();
 }
 
-function drawShape3(points, color, offset = .15*height) {
-
-  shape2.fill(color);
-  shape2.noStroke();
-
-  shape2.beginShape();
-  
-  for (let x = 0; x <= shape.width; x++) {
-    shape2.vertex(x, points[x] + offset);
-  }
-
-  shape2.vertex(width + 1, height + 1);
-  shape2.vertex(0 , height + 1);
-
-  shape2.endShape();
-  
-  //image(shape2,0,0);
-  //shape2.mask(waterTexture);
-
-  //image(shape2,0,0);
-  
-}
-
-function drawShape2(points, color, offset = .15*height) {
-  
-  shape.clear();
-
-  shape.fill(color);
-  shape.noStroke();
-
-  shape.beginShape();
-  
-  for (let x = 0; x <= shape.width; x++) {
-    shape.vertex(x, points[x] + offset);
-  }
-  
-  shape.vertex(width + 1, height + 1);
-  shape.vertex(0 , height + 1);
-
-  shape.endShape();
-  
-  //image(waterTexture,0,0);
-  //image(shape2,0,0);
-  waterTexture.mask(shape2);
-  //image(waterTexture,0,0);
-
-
-
-  //shape.mask(shape2);
-  image(waterTexture, 0, 0);
-  image(shape, 0,0);
-  
-  //image(shape,0,0);
-}
-
-
-
 let levelOneNoiseScale = 0.02;
 let levelTwoNoiseScale = 0.01;
 let levelThreeNoiseScale = 0.001;
@@ -170,7 +136,6 @@ let levelThreeNoiseScale = 0.001;
 let t = 0;
 
 function draw() {
-  /*
   if (mode==0) {
     // intro page setup
     rectMode(CENTER);
@@ -192,7 +157,6 @@ function draw() {
     text(intro, width/2, height/2-50, 140, 80);
   }
   else {
-    */
     // gradient background
     c1 = color(246,215,169,255);
     c2 = color(255);
@@ -204,13 +168,11 @@ function draw() {
       line(0,y,width, y);
     }
 
-    /*
     push();
     sand.resize(width,height);
     tint(255, 40);
     image(sand, 0, 0);
     pop();
-    */
 
     waterTexture.resize(width,height);
 
@@ -232,14 +194,9 @@ function draw() {
     }
 
     if (height <= 270) {
-      //drawShape2(waves, color(0,75,107, 200), sinEase(t/13, 5) + 30);
-      
       drawShape(waves, color(152,194,195), sinEase(t/19, 7)+5);
       drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 15);
-      drawShape3(waves, color(0,75,107), sinEase(t/13, 5) + 30);
-      drawShape2(waves, color(0,75,107,240), sinEase(t/13, 5) + 30);
-      //image(waterTexture, 0, 0);
-      //waterTexture.clear();
+      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 30);
     }
     else if (height <= 300){
       drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 10);
@@ -286,7 +243,7 @@ function draw() {
       umbrellas[j].showUmbrella();
     }
 
-  //}
+  }
 }
 
 class Person {
