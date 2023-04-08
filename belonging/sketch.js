@@ -1,12 +1,66 @@
 // Grace Johnson
-// Belonging:
+// Belonging: 
 
-//let SCENE_WIDTH = 1600;
-let c1, c2;
+let c1, c2, t1, t2, s;
+let waveSound, birdSound, crowdSound;
+let people = [];
+let numPeople;
+let tones = [];
+let playing = false;
+var mode = 0;
+
+function preload() {
+  soundFormats('mp3', 'wav');
+  waveSound = createAudio('assets/beach.mp3');
+  birdSound = createAudio('assets/seagulls.mp3');
+  crowdSound = createAudio('assets/crowd.wav');
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // 454 240
+
+  a = createButton("start");
+  a.position(width/2, height/2);
+  a.mousePressed(updatemode);
+  a.center('horizontal');
+
+  waveSound.volume(0.25);
+  birdSound.volume(0.7);
+  crowdSound.volume(0.1);
+
+  numPeople = random(100,200); 
+  t1 = color(59,34,25);
+  t2 = color(255,231,209);
+
+  for(let j=0; j<70; j++){
+    t = map(j,0,50,0,1);
+    let newt = lerpColor(t2,t1,t);
+    tones[j] = newt;
+  }
+
+  for (let i = 0; i < numPeople; i++) {
+    s = random(tones);
+    people[i] = new Person(random(width), random(height/1.5), 6, 6, color(random(255), random(255), random(255)), s);
+  }
+}
+
+function mousePressed() {
+  if (!playing) {
+    waveSound.loop();
+    birdSound.loop();
+    crowdSound.loop();
+  } else {
+    waveSound.stop();
+    birdSound.stop();
+    crowdSound.stop();
+  }
+  playing = !playing;
+}
+
+function updatemode() {
+  clear();
+  mode = 1;
+  a.hide();
 }
 
 function sinEase(x, scale) {
@@ -33,7 +87,6 @@ function drawShape(points, color, offset = .15*height) {
   endShape();
 }
 
-
 let levelOneNoiseScale = 0.02;
 let levelTwoNoiseScale = 0.01;
 let levelThreeNoiseScale = 0.001;
@@ -41,80 +94,108 @@ let levelThreeNoiseScale = 0.001;
 let t = 0;
 
 function draw() {
-  // gradient background
-  c1 = color(0,103,214,255);
-  c2 = color(185, 218, 248);
+  if (mode==0) {
+    // intro page setup
+    rectMode(CENTER);
+    background(255);
 
-  for(let y=0; y<height; y++){
-    n = map(y,0,height,0,1);
-    let newc = lerpColor(c1,c2,n);
-    stroke(newc);
-    line(0,y,width, y);
-  }
+    // text box
+    push();
+    stroke(0);
+    noFill();
+    strokeWeight(4);
+    rect(width/2, height/2-40, 180, 200);
+    pop();
 
-  noStroke();
-
-  t += 0.25;
-
-  let waves = [];
-  let land = [];
-  let mountains = [];
-
-  for (let x = 0; x <= width; x++) {
-    let levelOneNoise = scaledNoise(x, t, 1, levelOneNoiseScale, 1, 0);
-    let levelOnebNoise = scaledNoise(x, t, 0.2, levelOneNoiseScale, 1, 0);
-
-    let levelTwoNoise = scaledNoise(x, t, 2, levelTwoNoiseScale, 2, 1000);
-    let levelTwobNoise = scaledNoise(x, t, 0.4, levelTwoNoiseScale, 2.5, 4000);
-    let levelThreeNoise = scaledNoise(x, t, 3.5, levelThreeNoiseScale, 3, 5000);
-
-    let noises = levelOneNoise + levelTwoNoise + levelThreeNoise;
-
-    let noisesScaled = map(noises, 1, 5, 30, 140) + 50;
-    let levelOneScaled = map(levelOnebNoise, 0, 5, 50, 200) - 20;
-    let levelTwoScaled = map(levelTwobNoise, 0, 5, 50, 200) + 20;
-
-    mountains.push(levelOneScaled);
-    land.push(levelTwoScaled);
-    waves.push(noisesScaled);
-  }
-
-  //drawShape(mountains, color(82, 90, 105));
-  //drawShape(land, color(154, 171, 0));
-  
-  // Three versions of the waves with sine easing applied to the colour and position offsets.
-  //drawShape(waves, color(0,75,107), sinEase(t/19, 7) + 100);
-  //drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 10);
-  //drawShape(waves, color(152,194,195), sinEase(t/13, 5) + 20);
-
-  if (height <= 270) {
-    drawShape(waves, color(152,194,195), sinEase(t/19, 7)+5);
-    drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 15);
-    drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 30);
-  }
-  else if (height <= 300){
-    drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 10);
-    drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 20);
-    drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 35);
-  }
-  else if (height <= 350) {
-    drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 30);
-    drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 40);
-    drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 55);
-  }
-  else if (height <= 480) {
-    drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 90);
-    drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 100);
-    drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 115);
+    // intro text
+    let intro = "click on the screen to play or stop the beach sounds";
+    fill(0);
+    textAlign(CENTER);
+    textSize(14);
+    text(intro, width/2, height/2-50, 140, 80);
   }
   else {
-    drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 150);
-    drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 160);
-    drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 175);
-  }
-  // 0,75,107
-  // 0,129,155
-  //152,194,195
+    // gradient background
+    c1 = color(246,215,169,255);
+    c2 = color(255);
 
+    for(let y=0; y<height; y++){
+      n = map(y,0,height,0,1);
+      let newc = lerpColor(c1,c2,n);
+      stroke(newc);
+      line(0,y,width, y);
+    }
+
+    noStroke();
+    t += 0.25;
+    let waves = [];
+
+    for (let x = 0; x <= width; x++) {
+      let levelOneNoise = scaledNoise(x, t, 1, levelOneNoiseScale, 1, 0);
+
+      let levelTwoNoise = scaledNoise(x, t, 2, levelTwoNoiseScale, 2, 1000);
+      let levelThreeNoise = scaledNoise(x, t, 3.5, levelThreeNoiseScale, 3, 5000);
+
+      let noises = levelOneNoise + levelTwoNoise + levelThreeNoise;
+
+      let noisesScaled = map(noises, 1, 5, 30, 140) + 50;
+
+      waves.push(noisesScaled);
+    }
+
+    if (height <= 270) {
+      drawShape(waves, color(152,194,195), sinEase(t/19, 7)+5);
+      drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 15);
+      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 30);
+    }
+    else if (height <= 300){
+      drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 10);
+      drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 20);
+      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 35);
+    }
+    else if (height <= 350) {
+      drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 30);
+      drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 40);
+      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 55);
+    }
+    else if (height <= 480) {
+      drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 90);
+      drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 100);
+      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 115);
+    }
+    else {
+      drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 150);
+      drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 160);
+      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 175);
+    }
+
+    for (let i = 0; i < people.length; i++) {
+      people[i].showPerson();
+    }
+  }
 }
 
+class Person {
+  constructor(x, y, s1, s2, c, s) {
+    this.x = x;
+    this.y = y;
+    this.s1 = s1;
+    this.s2 = s2;
+    this.c = c;
+    this.s = s;
+  }
+
+  showPerson() {
+    
+    stroke(this.c);
+    strokeWeight(3);
+    line(this.x, this.y, this.x, this.y+6);
+
+    noStroke();
+    fill(this.s);
+    ellipse(this.x, this.y, this.s1, this.s2);
+    
+    this.x += random(-0.5, 0.5);
+    this.y += random(-0.5, 0.5);
+  }
+}
