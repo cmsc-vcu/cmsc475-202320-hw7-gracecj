@@ -7,6 +7,10 @@ let people = [];
 let numPeople;
 let tones = [];
 let playing = false;
+let x;
+let y = 0;
+let dim = 30.0;
+let shark, sand;
 var mode = 0;
 
 function preload() {
@@ -14,6 +18,8 @@ function preload() {
   waveSound = createAudio('assets/beach.mp3');
   birdSound = createAudio('assets/seagulls.mp3');
   crowdSound = createAudio('assets/crowd.wav');
+  shark = loadImage('assets/shark1.png');
+  sand = loadImage('assets/sandTexture.jpeg');
 }
 
 function setup() {
@@ -28,7 +34,6 @@ function setup() {
   birdSound.volume(0.7);
   crowdSound.volume(0.1);
 
-  numPeople = random(100,200); 
   t1 = color(59,34,25);
   t2 = color(255,231,209);
 
@@ -38,10 +43,12 @@ function setup() {
     tones[j] = newt;
   }
 
-  for (let i = 0; i < numPeople; i++) {
+  for (let i = 0; i < random(100,200); i++) {
     s = random(tones);
     people[i] = new Person(random(width), random(height/1.5), 6, 6, color(random(255), random(255), random(255)), s);
   }
+
+  x = width;
 }
 
 function mousePressed() {
@@ -126,6 +133,12 @@ function draw() {
       line(0,y,width, y);
     }
 
+    push();
+    sand.resize(width,height);
+    tint(255, 40);
+    image(sand, 0, 0);
+    pop();
+
     noStroke();
     t += 0.25;
     let waves = [];
@@ -166,7 +179,23 @@ function draw() {
     else {
       drawShape(waves, color(152,194,195), sinEase(t/19, 7) + 150);
       drawShape(waves, color(0,129,155), sinEase(t/17, 6) + 160);
-      drawShape(waves, color(0,75,107), sinEase(t/13, 5) + 175);
+
+      // Animate by increasing our x value
+      x = x - 0.2;
+      // If the shape goes off the canvas, reset the position
+      if (x < -20) {
+        x = width;
+      }
+      // Even though our rect command draws the shape with its
+      // center at the origin, translate moves it to the new
+      // x and y position
+      push();
+      translate(x, height*0.9);
+      shark.resize(50, 0);
+      image(shark, -dim/2, -dim/2+30);
+      pop();
+
+      drawShape(waves, color(0,75,107, 240), sinEase(t/13, 5) + 175);
     }
 
     for (let i = 0; i < people.length; i++) {
@@ -174,6 +203,8 @@ function draw() {
     }
   }
 }
+
+
 
 class Person {
   constructor(x, y, s1, s2, c, s) {
